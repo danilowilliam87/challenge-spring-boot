@@ -1,13 +1,18 @@
 package com.io.blogapi.dto;
 
 
-import jakarta.persistence.Column;
+import java.time.LocalDate;
+
+import com.io.blogapi.domain.Topico;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
-
-import java.time.LocalDate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,4 +38,13 @@ public class TopicoDto {
 
     @NotEmpty
     private String curso;
+
+    public static Topico converter(TopicoDto topicoDto){
+        return new Topico(topicoDto.getTitulo(),
+                topicoDto.getMensagem(),
+                topicoDto.getDataCriacao(),
+                topicoDto.getAutor(),
+                 topicoDto.getStatus(),
+                topicoDto.getCurso());
+    }
 }
