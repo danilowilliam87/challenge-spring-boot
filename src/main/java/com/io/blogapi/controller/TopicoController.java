@@ -1,6 +1,10 @@
 package com.io.blogapi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +22,13 @@ public class TopicoController {
     private TopicoService topicoService;
 
     @PostMapping
-    public Topico salvarTopico(@RequestBody TopicoDto topicoDto){
-        return topicoService.salvarTopico(topicoDto);
+    public ResponseEntity<Topico> salvarTopico(@RequestBody TopicoDto topicoDto){
+        Topico novo = topicoService.salvarTopico(topicoDto);
+        return ResponseEntity.ok(novo);
+    }
+
+    @GetMapping("/listar")
+    public ResponseEntity<Page<Topico>> listarTodos(Pageable page){
+        return ResponseEntity.ok(this.topicoService.listarTopicos(page));
     }
 }

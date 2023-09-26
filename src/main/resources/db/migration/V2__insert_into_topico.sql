@@ -81,3 +81,8 @@ insert into TOPICO(
  'MARTIN FOWLER',
  'ANALISE DE SISTEMAS'
 );
+
+
+
+
+
