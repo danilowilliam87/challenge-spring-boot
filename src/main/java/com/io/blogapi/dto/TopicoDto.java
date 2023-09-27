@@ -21,22 +21,22 @@ import lombok.ToString;
 @ToString
 public class TopicoDto {
 
-    @NotBlank
+    @NotBlank(message = "campo obriogatorio")
     private String titulo;
 
-    @NotBlank
+    @NotBlank(message = "campo obriogatorio")
     private String mensagem;
 
     @NotNull
     private LocalDate dataCriacao;
 
-    @NotEmpty
+    @NotEmpty(message = "campo obriogatorio")
     private String status;
 
-    @NotEmpty
+    @NotEmpty(message = "campo obriogatorio")
     private String autor;
 
-    @NotEmpty
+    @NotEmpty(message = "campo obriogatorio")
     private String curso;
 
     public static Topico converter(TopicoDto topicoDto){

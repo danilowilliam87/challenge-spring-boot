@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.io.blogapi.domain.Topico;
 import com.io.blogapi.dto.TopicoDto;
+import com.io.blogapi.exceptions.RecursoNaoEncontradoException;
 import com.io.blogapi.repository.TopicoRepository;
 
 @Service
@@ -24,7 +25,8 @@ public class TopicoService {
     }
 
     public Topico buscarPorId(Long id){
-        return topicoRepository.findById(id).get();
+        return topicoRepository.findById(id)
+        .orElseThrow(()-> new RecursoNaoEncontradoException("objeto nao encontrado"));
     }
 
     public void excluirTopico(Long id){
@@ -33,16 +35,18 @@ public class TopicoService {
 
 
     public Topico atualizar(Long id, TopicoDto dto){
-        Topico busca = buscarPorId(id);
-        if(busca != null){
-            busca.setAutor(dto.getAutor());
-            busca.setMensagem(dto.getMensagem());
-            busca.setCurso(dto.getCurso());
-            busca.setDataCriacao(dto.getDataCriacao());
-            busca.setStatus(dto.getStatus());
-            busca.setTitulo(dto.getTitulo());
-            return this.topicoRepository.save(busca);
+        if(!this.topicoRepository.existsById(id)){
+             throw new RecursoNaoEncontradoException("objeto nao encontrado"); 
         }
-        return null;
+        Topico busca = buscarPorId(id);
+        busca.setAutor(dto.getAutor());
+        busca.setMensagem(dto.getMensagem());
+        busca.setCurso(dto.getCurso());
+        busca.setDataCriacao(dto.getDataCriacao());
+        busca.setStatus(dto.getStatus());
+        busca.setTitulo(dto.getTitulo());
+        return this.topicoRepository.save(busca);
+        
+        
     }
 }

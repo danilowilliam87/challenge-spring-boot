@@ -17,6 +17,8 @@ import com.io.blogapi.domain.Topico;
 import com.io.blogapi.dto.TopicoDto;
 import com.io.blogapi.service.TopicoService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/topicos")
 public class TopicoController {
@@ -25,7 +27,7 @@ public class TopicoController {
     private TopicoService topicoService;
 
     @PostMapping
-    public ResponseEntity<Topico> salvarTopico(@RequestBody TopicoDto topicoDto){
+    public ResponseEntity<Topico> salvarTopico(@RequestBody @Valid TopicoDto topicoDto){
         Topico novo = topicoService.salvarTopico(topicoDto);
         return ResponseEntity.ok(novo);
     }
